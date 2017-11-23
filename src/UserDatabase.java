@@ -3,6 +3,7 @@ import java.nio.file.*;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 /**
  * Write a description of class UserDatabase here.
  *
@@ -54,14 +55,13 @@ public class UserDatabase
     
     public boolean loadDatabase() {
         try {
-            
-            Files.lines(Paths.get(DATABASE_FILENAME))
-                .forEach()
-                    .map(Student::new)
-                .collect(Collectors.toCollection(ArrayList::new));
-            
+
+               students = Files.lines(Paths.get(DATABASE_FILENAME))
+                       .map(Student::new)
+                       .collect(Collectors.toCollection(ArrayList::new));
             return true;
-        } catch (IOException e) {
+        }
+           catch (IOException e) {
             return false;
         }
     }

@@ -1,3 +1,4 @@
+import java.io.IOException;
 
 /**
  * Write a description of class Student here.
@@ -19,18 +20,17 @@ public class Student
     }
     
     public Student(String encodedStudent) {
-        String [] parts = new String[2];
+        String[] parts = new String[2];
         parts = encodedStudent.split("\t");
         String names = parts[0];
-        String [] newname = new String[2];
+        String[] newname = new String[2];
         newname = names.split(";");
-        String firstName = newname [0];
-        String surname = newname [1];
-        String course = parts [1];
+        String firstName = newname[0];
+        String surname = newname[1];
+        String course = parts[1];
         name = new Name(firstName, surname);
         courses = new CourseCollection();
         addCourse(course);
-
     }
     
     public String encode() {
