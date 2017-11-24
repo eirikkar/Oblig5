@@ -1,9 +1,7 @@
-import java.io.File;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.io.IOException;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 /**
  * Write a description of class UserDatabase here.
  *
@@ -44,25 +42,26 @@ public class UserDatabase
     public boolean saveDatabase() {
         try {
             Files.write(Paths.get(DATABASE_FILENAME),
-                students.stream()
-                .map(Student::encode)
-                .collect(Collectors.toCollection(ArrayList::new)));
+                    students.stream()
+                            .map(Student::encode)
+                            .collect(Collectors.toCollection(ArrayList::new)));
             return true;
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             return false;
         }
     }
     
     public boolean loadDatabase() {
         try {
-
-               students = Files.lines(Paths.get(DATABASE_FILENAME))
-                       .map(Student::new)
-                       .collect(Collectors.toCollection(ArrayList::new));
-            return true;
+            students = Files.lines(Paths.get(DATABASE_FILENAME))
+                    .map(Student::new)
+                    .collect(Collectors.toCollection(ArrayList::new));
         }
            catch (IOException e) {
-            return false;
+           throw  new DatabaseFormatException("Unable to open " + DATABASE_FILENAME);
+        } finally {
+            return true;
         }
     }
 }
